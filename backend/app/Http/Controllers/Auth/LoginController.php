@@ -42,18 +42,50 @@ class LoginController extends Controller
 
     public function redirectToGoogle()
     {
-        return Socialite::driver('google')->redirect();
+        return $this->redirectToSns('google');
+    }
+
+    public function redirectToGithub()
+    {
+       return $this->redirectToSns('github');
+    }
+
+    public function redirectToTwitter()
+    {
+        return $this->redirectToSns('twitter');
     }
 
     public function getGoogleUser()
     {
-        $googleUser = Socialite::driver('google')->stateless()->user();
+        return $this->getSocialUser('google');
+    }
 
-        $user = User::create([
-            'email' => $googleUser->id,
-            'name' => $googleUser->name,
+    public function getGithubUser()
+    {
+        return $this->getSocialUser('github');
+    }
+
+    public function getTwitterUser()
+    {
+        return $this->getSocialUser('twitter');
+    }
+
+    private function redirectToSns(string $sns)
+    {
+        return Socialite::driver($sns)->redirect();
+    }
+
+    private function getSocialUser(string $sns)
+    {
+        $user = Socialite::driver($sns)->stateless()->user();
+
+        $newUser = User::create([
+            'email' => $user->email,
+            'name' => $user->name,
         ]);
 
-        return $user;
+        return $newUser;
     }
+
+
 }
