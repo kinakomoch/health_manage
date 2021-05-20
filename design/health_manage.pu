@@ -1,0 +1,41 @@
+@startuml health_manage
+
+entity "User" as users {
+    *id :number <<generated>>
+    --
+    email :string unique required
+    name :string required
+    age :int
+    birthday :datetime
+    password :string required
+    created_at :timestamp required
+    updated_at :timestamp required
+    deleted_at :timestamp
+} 
+
+entity "Dish" as dishes {
+    *id :number <<generated>>
+    --
+    #user_id :int <<foreign>>
+    ate_time :datetime required
+    name :string required
+    created_at :timestamp required
+    updated_at :timestamp required
+    deleted_at :timestamp
+}
+
+entity "Exercise" as exercises {
+    *id :number <<generated>>
+    --
+    #user_id :int <<foreign>>
+    exercised_start_time :datetime required
+    exercised_end_time :datetime required
+    type :int required
+    created_at :timestamp required
+    updated_at :timestamp required
+    deleted_at :timestamp
+}
+
+users --|{ dishes
+users --|{ exercises
+@enduml
