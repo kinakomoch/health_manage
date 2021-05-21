@@ -23,7 +23,6 @@ window.Vue = require('vue').default;
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('header-component', HeaderComponent);
 
 /**
@@ -38,10 +37,20 @@ const router = new VueRouter({
     mode: 'history',
     routes: [
         {
-            path: '/tasks',
-            name: 'task.list',
-            component: TaskListComponent
+            path: '/foods',
+            name: 'food_list',
+            component: FoodComponent
         },
+        {
+            path: '/exercises',
+            name: 'exercise_list',
+            component: ExerciseComponent
+        },
+        {
+            path: '/users',
+            name: 'user_list',
+            component: UserComponent
+        }
     ]
 });
 
